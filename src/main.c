@@ -9,6 +9,7 @@ static struct {
     enemy enemy;
     ball ball;
     float aspect;
+    float width, height;
 } state;
 
 void init(void) {
@@ -23,6 +24,9 @@ void init(void) {
         .clear_stencil = 0
     };
 
+    state.width = cr_get_width();
+    state.height = cr_get_height(); 
+
     init_player(&state.player);
     init_enemy(&state.enemy);
     init_ball(&state.ball);
@@ -36,7 +40,7 @@ void frame(void) {
     last_time = current_time;
 
     // Get window aspect ratio
-    state.aspect = cr_get_width() / cr_get_height();
+    state.aspect = state.width / state.height;
 
     // Update clear color based on time
     const float color_time = current_time * 0.5f;
